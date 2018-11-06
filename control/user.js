@@ -1,6 +1,6 @@
 const moment = require("moment")
 const conn = require("../db/index.js")
-const register=(req, res) => {
+const register = (req, res) => {
     const body = req.body
 
     // 判断数据是否输入
@@ -22,17 +22,29 @@ const register=(req, res) => {
         })
     })
 }
-const login=(req, res) => {
+const login = (req, res) => {
     const body = req.body
     const sql = "select * from users where  username = ? and password = ?  "
-    conn.query(sql,[body.username,body.password],(err,result)=>{
-        if (err) return res.status(501).send({ msg: "请重新输入" }) 
+    conn.query(sql, [body.username, body.password], (err, result) => {
+        if (err) return res.status(501).send({ msg: "请重新输入" })
         if (result.length !== 1) return res.status(505).send({ msg: "请更换其他用户名重新注册", status: 505 })
-        res.send({ status: 200, msg: "ok" })
+        req.session.islogin = true
+        req.session.user = result[0]
+        let hour = 1000 * 60*60*24*30
+        req.session.cookie.expires = new Date(Date.now() + hour)
+        res.send({ status: 200, msg: "登录成功" })
     })
-   
+
 }
-module.exports={
+const logout = (req, res) => {
+    req.session.destroy(err => {
+        // cannot access session here
+        res.redirect("/")
+    })
+}
+
+module.exports = {
     register,
-    login
+    login,
+    logout
 }
