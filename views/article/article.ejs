@@ -1,0 +1,47 @@
+<%- include("../common/head.ejs")%>
+<link rel="stylesheet" href="/node_modules/mditor/dist/css/mditor.min.css">
+<script src="/node_modules/mditor/dist/js/mditor.min.js"></script>
+<div class="container">
+    <h1>这是文章发表页面</h1>
+    <hr>
+    <form id="form">
+        <input type="hidden" value="<%=user.id%>" name="authorId">
+        <div class="from-group">
+            <label>文章标题:</label>
+            <input type="text" class="form-control" name="title">
+        </div>
+        <div class="from-group">
+            <label>文章内容1:</label>
+            <textarea name="content" id="editor"></textarea>
+        </div>
+        <div class="from-group">
+            <input type="submit" class="btn btn-primary" value="发表文章" id="submit">
+        </div>
+    </form>
+</div>
+<script>
+    let mditor = Mditor.fromTextarea(document.getElementById('editor'));
+    $(function () {
+        $("#form").on("submit", function () {
+            $.ajax({
+                url: "/add/article",
+                type: "post",
+                data: $("#form").serialize(),
+                dataType: "json",
+                success: function (res) {
+                  if(res.status===200){
+                    location.href="/info/article"
+                   }
+                },
+                error:function(error){
+                    console.log(error)
+                    if(error.responseJSON.status===400){
+                        alert(error.responseJSON.msg)
+                    }
+                }
+            })
+            return false    
+        })  
+    })
+</script>
+<%- include("../common/footer.ejs")%>

@@ -1,6 +1,10 @@
 // 初始化
 const initialize = (req, res) => {
-    res.render("index.ejs", { name: "哈哈", age: 12 })
+    if(!req.session.islogin) return res.redirect("/login")
+    res.render("index.ejs", { 
+        user:req.session.user,
+        islogin:req.session.islogin
+     })
 }
 const showLogin = (req, res) => {
     res.render("./user/login.ejs", {})
