@@ -30,15 +30,20 @@
                 dataType: "json",
                 success: function (res) {
                   if(res.status===200){
-                    location.href="/info/article"
+                    location.href="/info/article/"+res.articleId
                    }
-                },
-                error:function(error){
-                    console.log(error)
-                    if(error.responseJSON.status===400){
-                        alert(error.responseJSON.msg)
-                    }
+                   else{
+                       console.log(res)
+                    alert(res.msg)
+                    // location.href="/login"
+                   }
                 }
+                // error:function(error){
+                //     console.log(error)
+                //     if(error.responseJSON.status===400){
+                //         alert(error.responseJSON.msg)
+                //     }
+                // }
             })
             return false    
         })  

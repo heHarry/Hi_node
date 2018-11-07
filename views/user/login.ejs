@@ -58,7 +58,9 @@
           success: function (result) {
             if (result.status !== 200) {
               // 登录失败
-              return alert(result.msg)
+              alert(result.msg)
+              location.href="/login"
+              return
             }
             location.href = '/'
           }

@@ -1,3 +1,21 @@
 <%- include("../common/head.ejs")%>
-<h1>这是详情页......</h1>
+<link rel="stylesheet" href="/node_modules/art-template/lib/template-web.js">
+<div class="container" id="info"></div>
+<script type="text/html" id='informationArticle'>
+    <h1>{{=$data.content}}</h1>
+
+</script>
+<script>
+// $(function(){
+//     $.ajax({
+//         url:"",
+//         type:"get",
+//         data:"",
+//         success:function(res){
+//             let html = template("informationArticle",{res:data})
+//             $("#info").html(html)
+//         }
+//     })
+// })
+</script>
 <%- include("../common/footer.ejs")%>
