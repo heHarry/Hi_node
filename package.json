@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "art-template": "^4.13.1",
     "body-parser": "^1.18.3",
     "bootstrap": "^3.3.7",
     "ejs": "^2.6.1",
