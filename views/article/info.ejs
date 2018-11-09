@@ -1,21 +1,21 @@
 <%- include("../common/head.ejs")%>
-<link rel="stylesheet" href="/node_modules/art-template/lib/template-web.js">
-<div class="container" id="info"></div>
-<script type="text/html" id='informationArticle'>
-    <h1>{{=$data.content}}</h1>
-
-</script>
+<link rel="stylesheet" href="/node_modules/mditor/dist/css/mditor.min.css">
+<script src="/node_modules/mditor/dist/js/mditor.min.js"></script>
+<div class="container">
+    <h1>
+        <%=data.title%>
+        <!-- 只有登录才能编辑 -->
+        <% if(islogin&&user.id===data.authorId){%>
+        <a href="/info/eduit/<%=data.id%>" class="btn btn-info pull-right">编辑</a>
+        <%}%>
+    </h1>
+    <hr>
+    <div>
+        <%- data.content%>
+    </div>
+</div>
 <script>
-// $(function(){
-//     $.ajax({
-//         url:"",
-//         type:"get",
-//         data:"",
-//         success:function(res){
-//             let html = template("informationArticle",{res:data})
-//             $("#info").html(html)
-//         }
-//     })
-// })
+    let mditor = Mditor.fromTextarea(document.getElementById('editor'));
 </script>
+
 <%- include("../common/footer.ejs")%>
